@@ -55,6 +55,13 @@ plt.xlabel('Vertex Label')
 plt.ylabel('Difference in Harmonic Centrality (Difference - Observed)')
 plt.show()
 
+plt.plot(list(range(1,17)), expExpanded)
+plt.plot(list(range(1,17)), nodeHCs)
+plt.scatter(expExpanded)
+plt.scatter(nodeHCs)
+plt.xlabel('Vertex Label')
+plt.ylabel('Harmonic Centrality Scores for MCMC Simple Graph Space')
+plt.show()
 
 
 degree_seq = [d for n, d in graphNX.degree()]
@@ -73,4 +80,12 @@ plt.boxplot(expExpanded-configHCs, showfliers=False)
 plt.title('Harmonic Centrality Difference for Stub-Labeled Loopy Multigraph Space')
 plt.xlabel('Vertex Label')
 plt.ylabel('Difference in Harmonic Centrality (Difference - Observed)')
+plt.show()
+
+plt.plot(list(range(1,17)), expExpanded)
+plt.plot(list(range(1,17)), configHCs)
+plt.scatter(expExpanded)
+plt.scatter(configHCs)
+plt.xlabel('Vertex Label')
+plt.ylabel('Harmonic Centrality Scores for Stub-Labeled Loopy Multigraph Space')
 plt.show()

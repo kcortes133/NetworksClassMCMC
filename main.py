@@ -44,7 +44,6 @@ if test:
     print(time.time()-s)
 
 
-
 calc = True
 if calc:
     def getRand25():
@@ -56,27 +55,10 @@ if calc:
                 allFiles.append(path+'/'+file)
         subset = random.sample(allFiles, 25)
 
-        empCCoeffs = []
         randCCoeffs = []
         allCCoeffs = []
-        erCCoeffs = []
-        nodeNums = []
 
         for file in subset:
-            print(file)
-            #graphT = ig.Graph.Read_Ncol(file, directed=False)
-            #n = graphT.vcount()
-            #nodeNums.append(n)
-            #clusteringCoeff = graphT.transitivity_undirected()
-            #empCCoeffs.append(clusteringCoeff)
-
-            #p = ig.mean(graphT.degree())/(graphT.vcount()-1)
-            #del graphT
-            # ER random graph
-            #erG = ig.Graph.Erdos_Renyi(n=n, p=p)
-            #erCCoeffs.append(erG)
-            #del erG
-
             graphNX = nx.read_edgelist(file)
             mcmc = MCMC.MCMC(graphNX)
             # do 100 times
@@ -90,12 +72,12 @@ if calc:
             allCCoeffs.append(ccs)
             randCCoeffs.append(np.mean(ccs))
         allCCoeffs = np.array(allCCoeffs)
-        np.savez_compressed('Rand_Clustering_Coefficients1.npz',a=allCCoeffs)
+        np.savez_compressed('Rand_Clustering_Coefficients3.npz',a=allCCoeffs)
 
         return
     getRand25()
 
-erCalc = False
+erCalc = True
 if erCalc:
     def getRand25():
         random.seed(13)
@@ -106,7 +88,6 @@ if erCalc:
                 allFiles.append(path+'/'+file)
         subset = random.sample(allFiles, 25)
         erCCoeffs = []
-        erGDPLs = []
 
         c = 0
         for file in subset:
@@ -118,21 +99,16 @@ if erCalc:
             erG = ig.Graph.Erdos_Renyi(n=n, p=p)
             erCoeff = erG.transitivity_undirected()
             erCCoeffs.append(erCoeff)
-            #erGDPLs.append(calcMDPL(erG))
-
             c+=1
         with open('ER_Connectivity_Coefficients.txt', 'w')as f:
             for l in erCCoeffs:
                 f.write(str(l) + '\n')
 
-        #with open('ER_GDPLs.txt', 'w')as f:
-        #    for l in erGDPLs:
-        #        f.write(str(l) + '\n')
         return
     getRand25()
 
 
-eCCalc = False
+eCCalc = True
 if eCCalc:
     def getRand25():
         random.seed(13)
